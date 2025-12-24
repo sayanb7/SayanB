@@ -11,45 +11,146 @@
         
         body {
             font-family: 'Plus+Jakarta+Sans', sans-serif;
-            background-color: #0c0a09;
-            color: #fafaf9;
+            background-color: #2a1005; /* Deep Burnt Orange Base instead of Black */
+            color: #fff7ed; /* Warmer white text */
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
+        /* --- PREMIUM MESH GRADIENT ENGINE --- */
+        .ambient-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            /* The base is now a deep gradient itself, not flat color */
+            background: linear-gradient(135deg, #431407 0%, #2a1005 100%);
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px); /* Softer blur for better blending */
+            opacity: 0.8; /* Higher opacity to cover the dark base */
+            animation: drift 20s infinite alternate ease-in-out;
+            mix-blend-mode: screen; /* This makes colors glow together */
+        }
+
+        /* Intense Orange Core */
+        .orb-1 {
+            top: -20%;
+            left: -10%;
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, #f97316 0%, rgba(249, 115, 22, 0) 70%);
+            animation-duration: 25s;
+        }
+
+        /* Bright Yellow/Gold Highlight */
+        .orb-2 {
+            top: 10%;
+            right: -20%;
+            width: 70vw;
+            height: 70vw;
+            background: radial-gradient(circle, #fbbf24 0%, rgba(251, 191, 36, 0) 70%);
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        /* Deep Amber Bottom Flow */
+        .orb-3 {
+            bottom: -20%;
+            left: 10%;
+            width: 90vw;
+            height: 60vw;
+            background: radial-gradient(circle, #ea580c 0%, rgba(234, 88, 12, 0) 70%);
+            animation-duration: 35s;
+            animation-delay: -10s;
+        }
+        
+        /* Extra Center Warmth */
+        .orb-4 {
+            top: 40%;
+            left: 40%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, #d97706 0%, rgba(217, 119, 6, 0) 70%);
+            animation-duration: 40s;
+            opacity: 0.6;
+        }
+
+        /* Texture Overlay to smooth gradients */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* --- UI ELEMENTS --- */
         .nav-glass {
-            background: rgba(12, 10, 9, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(42, 16, 5, 0.4);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.1);
         }
 
         .glass-card {
-            background: rgba(28, 25, 23, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(67, 20, 7, 0.3); /* Warm tint glass */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(251, 191, 36, 0.1); /* Gold border */
             border-radius: 32px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
         .glass-card:hover {
-            border-color: rgba(234, 179, 8, 0.3);
+            border-color: rgba(251, 191, 36, 0.4);
             transform: translateY(-8px);
-            background: rgba(28, 25, 23, 0.8);
+            background: rgba(67, 20, 7, 0.5);
+            box-shadow: 0 20px 40px -10px rgba(234, 88, 12, 0.2);
         }
 
         .btn-primary {
-            background: #eab308;
-            color: #000;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #2a1005; /* Dark brown text for contrast */
             transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
         }
 
         .btn-primary:hover {
-            background: #facc15;
             transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 8px 30px rgba(251, 191, 36, 0.5);
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+        }
+
+        .skill-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .skill-chip:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+            border-color: transparent;
+            color: #2a1005;
+            font-weight: 700;
         }
 
         .gradient-text {
-            background: linear-gradient(to right, #ffffff, #a8a29e);
+            background: linear-gradient(to right, #ffffff, #fed7aa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -57,17 +158,26 @@
 </head>
 <body>
 
+    <!-- Dynamic Background -->
+    <div class="ambient-canvas">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+    <div class="noise-overlay"></div>
+
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 nav-glass">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="text-2xl font-black tracking-tighter italic">
                 SAYAN<span class="text-yellow-500">.</span>
             </div>
-            <div class="hidden md:flex items-center space-x-10 text-sm font-bold text-stone-400">
-                <a href="#home" class="hover:text-yellow-500 transition">Home</a>
-                <a href="#experience" class="hover:text-yellow-500 transition">Experience</a>
-                <a href="#skills" class="hover:text-yellow-500 transition">Skills</a>
-                <a href="#education" class="hover:text-yellow-500 transition">Education</a>
+            <div class="hidden md:flex items-center space-x-10 text-sm font-bold text-orange-100/70">
+                <a href="#home" class="hover:text-yellow-400 transition">Home</a>
+                <a href="#experience" class="hover:text-yellow-400 transition">Experience</a>
+                <a href="#skills" class="hover:text-yellow-400 transition">Skills</a>
+                <a href="#education" class="hover:text-yellow-400 transition">Education</a>
             </div>
             <a href="mailto:sayanbera007@gmail.com" class="btn-primary px-7 py-3 rounded-full text-sm font-extrabold uppercase tracking-tight">
                 Hire Me
@@ -78,21 +188,21 @@
     <!-- Hero Section -->
     <section id="home" class="pt-44 pb-32 px-6">
         <div class="max-w-7xl mx-auto text-center">
-            <div class="inline-block px-6 py-2 bg-stone-900/50 border border-stone-800 rounded-full text-yellow-500 text-sm font-black uppercase tracking-widest mb-10">
-                Available for Strategy & Ops Roles
+            <div class="inline-block px-6 py-2 bg-orange-950/30 border border-orange-500/20 rounded-full text-yellow-500 text-sm font-black uppercase tracking-widest mb-10 backdrop-blur-md">
+                Available for AI, Strategy, Operations and Product Roles
             </div>
             <h1 class="text-6xl md:text-8xl font-black mb-10 tracking-tight leading-none">
-                Sayan <span class="text-stone-500">Bera</span><span class="text-yellow-500 italic">.</span>
+                Sayan <span class="text-orange-200">Bera</span><span class="text-yellow-500 italic">.</span>
             </h1>
-            <p class="max-w-3xl mx-auto text-xl md:text-2xl text-stone-400 mb-14 font-medium leading-relaxed">
-                3.5+ years expertise at <span class="text-white font-bold underline decoration-yellow-500 decoration-4 underline-offset-8">HCLTech</span>. I transform complex data into actionable operational outcome.
+            <p class="max-w-3xl mx-auto text-xl md:text-2xl text-orange-100/70 mb-14 font-medium leading-relaxed">
+                3.5+ years expertise at <span class="text-white font-bold underline decoration-yellow-500 decoration-4 underline-offset-8">HCLTech</span>. I drive operational excellence through strategic problem-solving and data-informed decision making.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="https://www.linkedin.com/in/sayanbera7/" target="_blank" class="glass-card px-12 py-6 flex items-center gap-4 font-black text-lg group">
+                <a href="https://www.linkedin.com/in/sayanbera7/" target="_blank" class="glass-card px-12 py-6 flex items-center gap-4 font-black text-lg group text-white">
                     <i class="fab fa-linkedin text-2xl text-yellow-500 transition"></i>
                     LinkedIn
                 </a>
-                <a href="Sayan_Bera_Resume.pdf" target="_blank" class="bg-white text-black px-12 py-6 rounded-[32px] font-black text-lg hover:bg-stone-200 transition flex items-center gap-3">
+                <a href="Sayan_Bera_Resume.pdf" target="_blank" class="bg-white text-black px-12 py-6 rounded-[32px] font-black text-lg hover:bg-orange-50 transition flex items-center gap-3">
                     <i class="fas fa-file-download"></i> Download Resume
                 </a>
             </div>
@@ -100,23 +210,26 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-32 bg-stone-950/40">
+    <section id="experience" class="py-32">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-black mb-20 italic">The <span class="text-yellow-500 underline decoration-stone-800">Experience</span></h2>
+            <h2 class="text-5xl font-black mb-20 flex items-center gap-6 italic text-white">
+                <i class="fas fa-briefcase text-yellow-500 text-5xl"></i>
+                Work <span class="gradient-text">History</span>
+            </h2>
             
             <div class="space-y-12">
                 <!-- Current Role -->
                 <div class="glass-card p-10 md:p-14">
                     <div class="flex flex-col md:flex-row justify-between items-start mb-12">
                         <div>
-                            <h3 class="text-3xl font-black mb-3">Senior Analyst — RFP Operations</h3>
+                            <h3 class="text-3xl font-black mb-3 text-white">Presales Process & Operations Manager</h3>
                             <p class="text-yellow-500 font-bold text-xl uppercase tracking-tighter italic">HCLTech</p>
                         </div>
-                        <div class="mt-6 md:mt-0 px-6 py-3 bg-stone-800/80 rounded-2xl text-sm font-black border border-stone-700 uppercase tracking-widest">
+                        <div class="mt-6 md:mt-0 px-6 py-3 bg-orange-950/40 rounded-2xl text-sm font-black border border-orange-500/20 text-orange-100 uppercase tracking-widest">
                             2023 — Present
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-stone-300 text-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-orange-100/80 text-lg">
                         <div class="space-y-6">
                             <div class="flex gap-5">
                                 <i class="fas fa-arrow-right text-yellow-500 mt-1.5"></i>
@@ -141,17 +254,17 @@
                 </div>
 
                 <!-- Previous Role -->
-                <div class="glass-card p-10 md:p-14 opacity-60 hover:opacity-100 transition-all">
+                <div class="glass-card p-10 md:p-14 opacity-80 hover:opacity-100 transition-all">
                     <div class="flex flex-col md:flex-row justify-between items-start mb-10">
                         <div>
-                            <h3 class="text-2xl font-black mb-2">Analyst — Pre-Sales Operations</h3>
-                            <p class="text-stone-400 font-bold uppercase">HCLTech</p>
+                            <h3 class="text-2xl font-black mb-2 text-white">Consultant</h3>
+                            <p class="text-orange-200/60 font-bold uppercase">HCLTech</p>
                         </div>
-                        <div class="mt-6 md:mt-0 px-5 py-2 bg-stone-900 rounded-xl text-xs font-black border border-stone-800 uppercase tracking-widest">
+                        <div class="mt-6 md:mt-0 px-5 py-2 bg-orange-950/40 rounded-xl text-xs font-black border border-orange-500/10 text-orange-100/70 uppercase tracking-widest">
                             2021 — 2023
                         </div>
                     </div>
-                    <p class="text-stone-400 text-lg italic leading-relaxed">
+                    <p class="text-orange-100/70 text-lg italic leading-relaxed">
                         Streamlined bid management workflows and supported senior leadership in high-value deal structuring and operational planning.
                     </p>
                 </div>
@@ -159,51 +272,230 @@
         </div>
     </section>
 
-    <!-- Photography/About Section -->
-    <section class="py-32 px-6">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-                <h2 class="text-5xl font-black mb-6 italic">
-                    Beyond the <span class="text-yellow-500">Desk</span>
-                </h2>
-                <p class="text-stone-400 text-lg mb-8 leading-relaxed">
-                    Framing the world's chaos—chasing light and perspective to tell stories that words simply cannot.
-                </p>
-                <div class="flex gap-4">
-                    <div class="glass-card px-8 py-4 flex items-center gap-3 text-stone-300 font-bold">
-                        <i class="fas fa-mountain text-yellow-500"></i> Landscape
+    <!-- Technical Mastery / Skills -->
+    <section id="skills" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <!-- Operations IQ (Moved First) -->
+                <div>
+                    <h2 class="text-5xl font-black mb-12 italic flex items-center gap-4 text-white">
+                        <i class="fas fa-brain text-yellow-500"></i>
+                        Operations <span class="text-yellow-500">IQ</span>
+                    </h2>
+                    <div class="flex flex-wrap gap-4 text-orange-100">
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-3">
+                            <i class="fas fa-sync-alt text-yellow-500"></i> Process Optimization
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-3">
+                            <i class="fas fa-handshake text-yellow-500"></i> Stakeholder Engagement
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-3">
+                            <i class="fas fa-users-cog text-yellow-500"></i> Cross-functional Collaboration
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-3">
+                            <i class="fas fa-tasks text-yellow-500"></i> Operations Management
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-3">
+                            <i class="fas fa-chart-line text-yellow-500"></i> Data-Driven Decision Making
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-3">
+                            <i class="fas fa-puzzle-piece text-yellow-500"></i> Problem Solving
+                        </span>
                     </div>
-                    <div class="glass-card px-8 py-4 flex items-center gap-3 text-stone-300 font-bold">
-                        <i class="fas fa-street-view text-yellow-500"></i> Street
+                </div>
+
+                <!-- Tech Stack (Moved Second) -->
+                <div>
+                    <h2 class="text-5xl font-black mb-12 italic flex items-center gap-4 text-white">
+                        <i class="fas fa-layer-group text-yellow-500"></i>
+                        Tech <span class="text-yellow-500">Stack</span>
+                    </h2>
+                    <div class="flex flex-wrap gap-4 text-orange-100">
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-4">
+                            <i class="fab fa-python text-yellow-500"></i> Python
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-4">
+                            <i class="fas fa-database text-yellow-500"></i> SQL
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-4">
+                            <i class="fas fa-chart-area text-yellow-500"></i> Tableau
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-4">
+                            <i class="fas fa-microchip text-yellow-500"></i> GenAI
+                        </span>
+                        <span class="skill-chip px-8 py-4 rounded-3xl font-black flex items-center gap-4">
+                            <i class="fas fa-briefcase text-yellow-500"></i> MS Office Suite
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="relative group">
-                <div class="absolute -inset-4 bg-yellow-500/20 rounded-[40px] blur-2xl group-hover:bg-yellow-500/30 transition"></div>
-                <div class="relative h-96 w-full bg-stone-900 rounded-[40px] border-2 border-stone-800 flex items-center justify-center overflow-hidden">
-                    <i class="fas fa-camera text-8xl text-stone-800"></i>
-                    <!-- Add your photography image here: <img src="camera.jpg" class="object-cover w-full h-full"> -->
+        </div>
+    </section>
+
+    <!-- Academic Foundation / Education -->
+    <section id="education" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-5xl font-black mb-20 italic flex items-center justify-center gap-4 text-white">
+                Academic <span class="text-yellow-500">Excellence</span>
+                <i class="fas fa-glasses text-4xl text-yellow-500 -rotate-12" title="Vision & Focus"></i>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- SRCC PGD GBO (Post-2018) -->
+                <div class="glass-card p-14 group border-b-8 border-yellow-500 flex flex-col h-full relative overflow-hidden">
+                    <div class="w-20 h-20 rounded-3xl bg-yellow-500/10 flex items-center justify-center mx-auto mb-8 group-hover:rotate-6 transition">
+                        <i class="fas fa-award text-yellow-500 text-4xl"></i>
+                    </div>
+                    <h4 class="text-3xl font-black mb-3 text-white">PGD GBO</h4>
+                    <p class="text-orange-200/60 font-bold mb-6 uppercase tracking-widest">Shri Ram College of Commerce (SRCC)</p>
+                    <div class="inline-block px-6 py-2 bg-yellow-500 text-black font-black rounded-full text-lg mb-8 mx-auto">Score: 78.84%</div>
+                    
+                    <!-- PGD GBO Achievements (Rest / Post-2018) -->
+                    <div class="mt-auto border-t border-orange-500/10 pt-8 text-left">
+                         <h5 class="text-white font-bold mb-4 flex items-center gap-2 text-lg">
+                            <i class="fas fa-trophy text-yellow-500"></i> Key Achievements
+                        </h5>
+                        <ul class="space-y-4 text-orange-100/80 text-sm font-medium">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-star text-yellow-500 mt-1 text-xs"></i>
+                                <span>Secured Runners Up position in Dynamis 1.0 Case Study Event at SRCC, DU</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-star text-yellow-500 mt-1 text-xs"></i>
+                                <span>Secured 3rd position in BussCase 2.0 on Dare2Compete platform</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-star text-yellow-500 mt-1 text-xs"></i>
+                                <span>Secured Runners Up position at Envision organized by E-Cell NMIMS Mumbai</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-star text-yellow-500 mt-1 text-xs"></i>
+                                <span>Secured Runners Up position at Off-The-Cuff event at HR Conclave in DSIMS</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- B.Tech (Till 2018) -->
+                <div class="glass-card p-14 group border-b-8 border-orange-900/50 flex flex-col h-full relative overflow-hidden">
+                    <div class="w-20 h-20 rounded-3xl bg-orange-900/30 flex items-center justify-center mx-auto mb-8 group-hover:-rotate-6 transition">
+                        <i class="fas fa-book text-orange-300 text-4xl"></i>
+                    </div>
+                    <h4 class="text-3xl font-black mb-3 text-white">B.Tech Civil Engineering</h4>
+                    <p class="text-orange-200/60 font-bold mb-6 uppercase tracking-widest">SRM IST</p>
+                    <div class="inline-block px-6 py-2 bg-orange-950 text-orange-200 font-black rounded-full text-lg border border-orange-500/20 mb-8 mx-auto">CGPA: 9.572</div>
+
+                    <!-- B.Tech Achievements (Till 2018) -->
+                    <div class="mt-auto border-t border-orange-500/10 pt-8 text-left">
+                        <h5 class="text-white font-bold mb-4 flex items-center gap-2 text-lg">
+                            <i class="fas fa-medal text-orange-400"></i> Key Achievements
+                        </h5>
+                        <ul class="space-y-4 text-orange-100/80 text-sm font-medium">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-orange-400 mt-1 text-xs"></i>
+                                <span>Recognized as Best All Round Performer at Civil Department, SRMIST</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-orange-400 mt-1 text-xs"></i>
+                                <span>Secured 1st position at Bon Auto Routier event at CEA Fest in IIT Madras</span>
+                            </li>
+                             <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-orange-400 mt-1 text-xs"></i>
+                                <span>Secured 2nd position at Aquanomics event at CEA Fest in IIT Madras</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photography/About Section -->
+    <section class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+             <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6 italic text-white">
+                    Beyond the <span class="text-yellow-500">Desk</span>
+                </h2>
+                <p class="text-orange-100/70 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Framing the world's chaos—chasing light and perspective to tell stories that words simply cannot.
+                </p>
+            </div>
+            
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
+                <!-- Photo 1: Large Feature -->
+                <div class="lg:col-span-2 group relative overflow-hidden rounded-3xl border border-orange-500/20 bg-orange-950/20">
+                    <div class="absolute inset-0 bg-orange-950/20 flex items-center justify-center text-orange-800/50">
+                       <i class="fas fa-image text-5xl"></i> <!-- Placeholder Icon will show if image fails -->
+                    </div>
+                    <img src="photo1.jpeg" alt="Photography 1" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white font-bold">Perspective</span>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="group relative overflow-hidden rounded-3xl border border-orange-500/20 bg-orange-950/20">
+                    <div class="absolute inset-0 bg-orange-950/20 flex items-center justify-center text-orange-800/50">
+                       <i class="fas fa-image text-5xl"></i>
+                    </div>
+                    <img src="photo2.jpeg" alt="Photography 2" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="group relative overflow-hidden rounded-3xl border border-orange-500/20 bg-orange-950/20">
+                    <div class="absolute inset-0 bg-orange-950/20 flex items-center justify-center text-orange-800/50">
+                       <i class="fas fa-image text-5xl"></i>
+                    </div>
+                    <img src="photo3.jpeg" alt="Photography 3" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+
+                <!-- Photo 4: Large Feature -->
+                <div class="lg:col-span-2 group relative overflow-hidden rounded-3xl border border-orange-500/20 bg-orange-950/20">
+                    <div class="absolute inset-0 bg-orange-950/20 flex items-center justify-center text-orange-800/50">
+                       <i class="fas fa-image text-5xl"></i>
+                    </div>
+                    <img src="photo4.jpeg" alt="Photography 4" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+                
+                 <!-- Photo 5 -->
+                <div class="group relative overflow-hidden rounded-3xl border border-orange-500/20 bg-orange-950/20">
+                    <div class="absolute inset-0 bg-orange-950/20 flex items-center justify-center text-orange-800/50">
+                       <i class="fas fa-image text-5xl"></i>
+                    </div>
+                    <img src="photo5.jpeg" alt="Photography 5" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+
+                <!-- Photo 6: Large Feature -->
+                <div class="lg:col-span-2 group relative overflow-hidden rounded-3xl border border-orange-500/20 bg-orange-950/20">
+                    <div class="absolute inset-0 bg-orange-950/20 flex items-center justify-center text-orange-800/50">
+                       <i class="fas fa-image text-5xl"></i>
+                    </div>
+                    <img src="photo6.jpeg" alt="Photography 6" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white font-bold">Moments</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-24 border-t border-stone-900 bg-stone-950/50">
+    <footer class="py-24 border-t border-orange-500/10 bg-orange-950/30">
         <div class="max-w-6xl mx-auto px-6 flex flex-col items-center">
             <div class="text-4xl font-black mb-10 tracking-tighter italic">SAYAN<span class="text-yellow-500">.</span></div>
             <div class="flex space-x-12 mb-14">
                 <!-- Actionable Email Icon -->
-                <a href="mailto:sayanbera007@gmail.com" class="text-stone-500 hover:text-yellow-500 text-3xl transition" title="Draft an Email">
+                <a href="mailto:sayanbera007@gmail.com" class="text-orange-200/50 hover:text-yellow-500 text-3xl transition" title="Draft an Email">
                     <i class="fas fa-envelope"></i>
                 </a>
                 
                 <!-- Actionable LinkedIn Icon (Opens in new tab) -->
-                <a href="https://www.linkedin.com/in/sayanbera7/" target="_blank" class="text-stone-500 hover:text-yellow-500 text-3xl transition" title="Visit LinkedIn Profile">
+                <a href="https://www.linkedin.com/in/sayanbera7/" target="_blank" class="text-orange-200/50 hover:text-yellow-500 text-3xl transition" title="Visit LinkedIn Profile">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </div>
-            <p class="text-stone-600 text-xs font-black uppercase tracking-[0.4em]">&copy; 2024 • Passionate about Strategy and Operations</p>
+            <p class="text-orange-200/40 text-xs font-black uppercase tracking-[0.4em]">&copy; 2024 • Passionate about Strategy and Operations</p>
         </div>
     </footer>
 
