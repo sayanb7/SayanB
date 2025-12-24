@@ -11,7 +11,7 @@
         
         body {
             font-family: 'Plus+Jakarta+Sans', sans-serif;
-            background-color: #2a1005; /* Deep Burnt Orange Base instead of Black */
+            background-color: transparent; /* Changed to transparent so the gradient shows through */
             color: #fff7ed; /* Warmer white text */
             scroll-behavior: smooth;
             overflow-x: hidden;
@@ -25,8 +25,8 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            /* The base is now a deep gradient itself, not flat color */
-            background: linear-gradient(135deg, #431407 0%, #2a1005 100%);
+            /* Lighter, more visible gradient (Spiced Copper to Dark Wood) to avoid looking "black" */
+            background: linear-gradient(135deg, #7c2d12 0%, #451a03 100%);
             overflow: hidden;
         }
 
